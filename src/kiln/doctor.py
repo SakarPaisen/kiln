@@ -18,7 +18,7 @@ from kiln.config import UserConfig, config_path, load_config
 from kiln.install import SYSTEM_HINTS
 from kiln.shell import INSTALL_HINTS, KilnError
 from kiln.stack import ANSWERS_FILE, BACKEND_DIR, CHARTER_FILE, Stack, load_stack, read_answers
-from kiln.versions import installed_version, latest_release, release_version
+from kiln.versions import KILN_GIT_URL, installed_version, latest_release, release_version
 
 PROBE_TIMEOUT = 5
 CLAUDE_SETTINGS = Path.home() / ".claude" / "settings.json"
@@ -154,9 +154,8 @@ def _kiln_tool() -> Finding:
         and latest_version is not None
         and current_version < latest_version
     ):
-        return Finding(
-            Level.WARN, "kiln", f"{current}, {latest} disponible", "uv tool upgrade kiln"
-        )
+        upgrade = f'uv tool install --force "git+{KILN_GIT_URL}@{latest}"'
+        return Finding(Level.WARN, "kiln", f"{current}, {latest} disponible", upgrade)
     return Finding(Level.OK, "kiln", f"{current} (dernière version : {latest})")
 
 
