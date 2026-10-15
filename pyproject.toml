@@ -1,6 +1,6 @@
 [project]
 name = "kiln"
-version = "0.2.0"
+version = "1"
 description = "Generate production-grade repos in one command, then keep every one of them up to date"
 readme = "README.md"
 license = "MIT"
